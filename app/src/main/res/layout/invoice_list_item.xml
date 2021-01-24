@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="invoice"
+            type="com.example.marketplace.database.Invoice" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/invoiceListIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/todo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_article_24" />
+
+                <TextView
+                    android:id="@+id/buyerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{invoice.buyerName}"
+                    app:layout_constraintEnd_toStartOf="@id/invoiceListDate"
+                    app:layout_constraintStart_toEndOf="@id/invoiceListIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/invoicePaidHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/invoicePaid"
+                    app:layout_constraintEnd_toStartOf="@id/invoicePaid"
+                    app:layout_constraintStart_toStartOf="@id/buyerName"
+                    app:layout_constraintTop_toBottomOf="@id/buyerName" />
+
+                <TextView
+                    android:id="@+id/invoicePaid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:paidAmount="@{invoice}"
+                    app:layout_constraintEnd_toEndOf="@id/buyerName"
+                    app:layout_constraintStart_toEndOf="@id/invoicePaidHeading"
+                    app:layout_constraintTop_toBottomOf="@id/buyerName" />
+
+                <TextView
+                    android:id="@+id/invoiceListDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invoice_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/buyerName"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/invoiceTotalHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/invoiceTotal"
+                    app:layout_constraintEnd_toStartOf="@id/invoiceTotal"
+                    app:layout_constraintStart_toStartOf="@id/invoiceListDate"
+                    app:layout_constraintTop_toBottomOf="@id/invoiceListDate" />
+
+                <TextView
+                    android:id="@+id/invoiceTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:totalAmount="@{invoice}"
+                    app:layout_constraintEnd_toEndOf="@id/invoiceListDate"
+                    app:layout_constraintStart_toEndOf="@id/invoiceTotalHeading"
+                    app:layout_constraintTop_toBottomOf="@id/invoiceListDate" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>
