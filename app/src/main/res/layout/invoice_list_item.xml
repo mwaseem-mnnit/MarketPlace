@@ -7,11 +7,16 @@
         <variable
             name="invoice"
             type="com.example.marketplace.database.Invoice" />
+
+        <variable
+            name="clickListener"
+            type="com.example.marketplace.ui.invoice.InvoiceListener" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(invoice)}">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

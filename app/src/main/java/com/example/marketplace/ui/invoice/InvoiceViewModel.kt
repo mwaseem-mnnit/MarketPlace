@@ -48,8 +48,8 @@ class InvoiceViewModel(
         viewModelScope.launch {
             try {
                 val apiResponse = Api.retrofitService.getInvoiceList()
-                if (apiResponse.errorCode == 1 && apiResponse.data.isNotEmpty()) {
-                    apiResponse.data.forEach {
+                if (apiResponse.errorCode == 1 && apiResponse.data?.dataList?.isNotEmpty() == true) {
+                    apiResponse.data.dataList.forEach {
                         insert(
                             Invoice(
                                 id = it.id,
@@ -63,8 +63,7 @@ class InvoiceViewModel(
                     }
                 }
             } catch (e: Exception) {
-                Log.e("sample", "api failed")
-                clear()
+                Log.e("sample", "api failed: ${e.message}::${e.stackTrace}")
             }
         }
     }

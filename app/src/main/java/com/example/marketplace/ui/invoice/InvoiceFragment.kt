@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,7 +41,9 @@ class InvoiceFragment : Fragment() {
         binding.invoiceViewModel = invoiceViewModel
         binding.lifecycleOwner = this
 
-        val invoiceAdapter = InvoiceAdapter()
+        val invoiceAdapter = InvoiceAdapter(InvoiceListener { invoiceId ->
+            Toast.makeText(context, "$invoiceId", Toast.LENGTH_LONG).show()
+        })
         binding.invoiceList.adapter = invoiceAdapter
 
         invoiceViewModel.invoices.observe(viewLifecycleOwner, {

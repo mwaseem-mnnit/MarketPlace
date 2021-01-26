@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.marketplace.database.Invoice
 import com.example.marketplace.databinding.InvoiceListItemBinding
 
-class InvoiceAdapter : ListAdapter<Invoice, InvoiceAdapter.ViewHolder>(InvoiceDiffCallback()) {
+class InvoiceAdapter(val clickListener: InvoiceListener) :
+    ListAdapter<Invoice, InvoiceAdapter.ViewHolder>(InvoiceDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,8 +28,9 @@ class InvoiceAdapter : ListAdapter<Invoice, InvoiceAdapter.ViewHolder>(InvoiceDi
     class ViewHolder private constructor(val binding: InvoiceListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Invoice) {
+        fun bind(item: Invoice, clickListener: InvoiceListener) {
             binding.invoice = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -51,4 +53,8 @@ class InvoiceDiffCallback : DiffUtil.ItemCallback<Invoice>() {
         return oldItem == newItem
     }
 
+}
+
+class InvoiceListener(val onClickListener: (invoiceId: Long) -> Unit) {
+    fun onClick(invoice: Invoice) = onClickListener(invoice.id)
 }

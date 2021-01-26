@@ -9,8 +9,15 @@ package com.example.marketplace.network
 data class ResponseData<T>(
     val errorCode: Int,
     val errorMessage: String,
-    val data: T
+    val data: T?
 )
+
+data class PaginatedResponse<T>(
+    val lastSeen: Int,
+    val total: Int,
+    val dataList: List<T>?
+)
+
 
 data class InvoiceItemDTO(
     val id: Long,
