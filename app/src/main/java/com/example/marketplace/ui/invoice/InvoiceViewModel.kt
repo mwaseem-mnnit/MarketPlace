@@ -28,6 +28,10 @@ class InvoiceViewModel(
     val invoiceList: LiveData<List<Invoice>>
         get() = _invoiceList
 
+    private val _navigateToInvoiceDetail = MutableLiveData<Long>()
+    val navigateToInvoiceDetail
+        get() = _navigateToInvoiceDetail
+
     init {
         getInvoiceData()
     }
@@ -42,6 +46,14 @@ class InvoiceViewModel(
 
     private suspend fun clear() {
         database.clearInvoice()
+    }
+
+    fun onInvoiceClicked(invoiceId: Long) {
+        _navigateToInvoiceDetail.value = invoiceId
+    }
+
+    fun onInvoiceDetailNavigated() {
+        _navigateToInvoiceDetail.value = null
     }
 
     private fun getInvoiceData() {

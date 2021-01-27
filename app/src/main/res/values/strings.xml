@@ -19,4 +19,7 @@
     <string name="todo">TODO</string>
     <string name="invoiceTotal">Total:</string>
     <string name="invoicePaid">Paid:</string>
+    <string name="business_name">Business Name</string>
+    <string name="client_heading">Client Heading</string>
+    <string name="clientName">Client Name</string>
 </resources>

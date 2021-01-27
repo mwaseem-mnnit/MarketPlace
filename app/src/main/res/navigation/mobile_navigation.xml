@@ -21,5 +21,30 @@
         android:id="@+id/nav_invoice"
         android:name="com.example.marketplace.ui.invoice.InvoiceFragment"
         android:label="@string/menu_invoice"
-        tools:layout="@layout/fragment_invoice" />
+        tools:layout="@layout/fragment_invoice">
+        <action
+            android:id="@+id/action_nav_invoice_to_nav_invoice_detail"
+            app:destination="@id/nav_invoice_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_invoice_detail"
+        android:name="com.example.marketplace.ui.invoice.InvoiceDetailFragment"
+        android:label="Invoice Detail"
+        tools:layout="@layout/fragment_invoice_detail">
+        <argument
+            android:name="invoiceId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_nav_invoice_detail_to_nav_invoice"
+            app:destination="@id/nav_invoice"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/sleep_tracker_fragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
 </navigation>

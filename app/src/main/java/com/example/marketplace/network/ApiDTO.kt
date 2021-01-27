@@ -19,11 +19,36 @@ data class PaginatedResponse<T>(
 )
 
 
-data class InvoiceItemDTO(
+data class InvoiceRowDTO(
     val id: Long,
     val total: Double,
     val paidAmount: Double,
     val createdAt: Long,
     val buyerName: String,
-    val itemCount: Int
+    val itemCount: Int,
+    val items: List<InvoiceItemDTO>?
+)
+
+data class InvoiceDetailDTO(
+    val id: Long,
+    val createdAt: Long,
+    val seller: TransactingEntityDTO,
+    val buyer: TransactingEntityDTO
+)
+
+data class  TransactingEntityDTO(
+    val name: String,
+    val mobile: String,
+    val gstIN: String?,
+    val address: String?
+)
+
+data class InvoiceItemDTO(
+    val id: Long,
+    val productName: String,
+    val productImageUrl: String?,
+    val quantity: Int,
+    val cost: Double,
+    val sellingPrice: Double,
+    val discount: Double
 )

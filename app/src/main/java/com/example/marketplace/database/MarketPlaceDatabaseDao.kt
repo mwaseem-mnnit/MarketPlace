@@ -22,7 +22,7 @@ interface MarketPlaceDatabaseDao {
     suspend fun updateInvoice(invoice: Invoice)
 
     @Query("SELECT * from invoice WHERE id = :key")
-    suspend fun get(key: Long): Invoice
+    fun getInvoice(key: Long): LiveData<Invoice>
 
     @Query("DELETE FROM invoice")
     suspend fun clearInvoice()
@@ -30,4 +30,9 @@ interface MarketPlaceDatabaseDao {
     @Query("SELECT * FROM invoice ORDER BY id DESC")
     fun getAllInvoice(): LiveData<List<Invoice>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInvoiceItem(invoiceItem: InvoiceItem)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInvoiceItems(invoiceItems: List<InvoiceItem>)
 }

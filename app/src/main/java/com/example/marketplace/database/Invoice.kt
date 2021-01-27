@@ -8,6 +8,7 @@ package com.example.marketplace.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.marketplace.util.AppConstant
 
 @Entity(tableName = "invoice")
 data class Invoice (
@@ -15,7 +16,7 @@ data class Invoice (
     var id: Long = 0L,
 
     @ColumnInfo(name = "buyer_name")
-    var buyerName: String = "",
+    var buyerName: String = AppConstant.EMPTY_STRING,
 
     @ColumnInfo(name = "total_amount")
     var totalAmount: Double = 0.0,
@@ -28,4 +29,31 @@ data class Invoice (
 
     @ColumnInfo(name = "item_count")
     var itemCount: Int = 0
+)
+
+@Entity(tableName = "invoice_item")
+data class InvoiceItem (
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
+
+    @ColumnInfo(name = "invoice_id")
+    var invoiceId: Long = 0L,
+
+    @ColumnInfo(name = "product_name")
+    var productName: String = AppConstant.EMPTY_STRING,
+
+    @ColumnInfo(name = "product_image_url")
+    var productImageUrl: String = AppConstant.EMPTY_STRING,
+
+    @ColumnInfo(name = "quantity")
+    var quantity: Double = 0.0,
+
+    @ColumnInfo(name = "cost")
+    var cost: Double = 0.0,
+
+    @ColumnInfo(name = "selling_price")
+    var sellingPrice: Double = 0.0,
+
+    @ColumnInfo(name = "discount")
+    var discount: Double = 0.0,
 )

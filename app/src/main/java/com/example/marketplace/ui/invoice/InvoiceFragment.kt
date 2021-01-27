@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marketplace.R
 import com.example.marketplace.database.MarketPlaceDatabase
@@ -42,6 +44,7 @@ class InvoiceFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val invoiceAdapter = InvoiceAdapter(InvoiceListener { invoiceId ->
+            invoiceViewModel.onInvoiceClicked(invoiceId)
             Toast.makeText(context, "$invoiceId", Toast.LENGTH_LONG).show()
         })
         binding.invoiceList.adapter = invoiceAdapter
@@ -51,6 +54,16 @@ class InvoiceFragment : Fragment() {
                 invoiceAdapter.submitList(it)
             }
         })
+
+        invoiceViewModel.navigateToInvoiceDetail.observe(this, Observer {
+            invoiceId -> invoiceId?.let {
+                this.findNavController().navigate(
+                    InvoiceFragmentDirections.actionNavInvoiceToNavInvoiceDetail(invoiceId)
+                )
+                invoiceViewModel.onInvoiceDetailNavigated()
+            }
+        })
+
         val manager = LinearLayoutManager(activity)
         binding.invoiceList.layoutManager = manager
         return binding.root
