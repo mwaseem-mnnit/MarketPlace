@@ -66,8 +66,12 @@ class InvoiceViewModel(
                             Invoice(
                                 id = it.id,
                                 buyerName = it.buyerName,
+                                clientName = it.clientName,
                                 totalAmount = it.total,
                                 paidAmount = it.paidAmount,
+                                subTotal = it.subTotal,
+                                tax = it.tax,
+                                shipping = it.shipping,
                                 createdAt = it.createdAt,
                                 itemCount = it.itemCount
                             )

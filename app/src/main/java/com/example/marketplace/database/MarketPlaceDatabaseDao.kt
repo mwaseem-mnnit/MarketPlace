@@ -6,11 +6,7 @@ package com.example.marketplace.database
  *   To change this template use File | Settings | File and Code Templates.
 */
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface MarketPlaceDatabaseDao {
@@ -35,4 +31,10 @@ interface MarketPlaceDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInvoiceItems(invoiceItems: List<InvoiceItem>)
+
+    @Query("SELECT * FROM invoice_item where invoice_id = :key ORDER BY id DESC")
+    fun getInvoiceItem(key: Long): LiveData<List<InvoiceItem>>
+
+    @Query("SELECT * FROM invoice_item ORDER BY id DESC")
+    fun getInvoiceItemAll(): LiveData<List<InvoiceItem>>
 }

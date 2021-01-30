@@ -25,10 +25,10 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface ApiService {
-    @GET("api/v1/home/invoiceList")
+    @GET("api/v1/invoice/list")
     suspend fun getInvoiceList(): ResponseData<PaginatedResponse<InvoiceRowDTO>>
 
-    @GET("api/v1/home/invoice/detail")
+    @GET("api/v1/invoice/detail")
     suspend fun getInvoiceDetail(@Query("id") id: Long): ResponseData<InvoiceDetailDTO>
 }
 

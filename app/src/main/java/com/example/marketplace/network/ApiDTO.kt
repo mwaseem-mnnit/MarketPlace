@@ -23,17 +23,22 @@ data class InvoiceRowDTO(
     val id: Long,
     val total: Double,
     val paidAmount: Double,
+    val subTotal: Double,
+    val shipping: Double,
+    val tax: Double,
+    val discount: Double,
     val createdAt: Long,
     val buyerName: String,
-    val itemCount: Int,
-    val items: List<InvoiceItemDTO>?
+    val clientName: String,
+    val itemCount: Int
 )
 
 data class InvoiceDetailDTO(
     val id: Long,
     val createdAt: Long,
     val seller: TransactingEntityDTO,
-    val buyer: TransactingEntityDTO
+    val buyer: TransactingEntityDTO,
+    val items: List<InvoiceItemDTO>?
 )
 
 data class  TransactingEntityDTO(

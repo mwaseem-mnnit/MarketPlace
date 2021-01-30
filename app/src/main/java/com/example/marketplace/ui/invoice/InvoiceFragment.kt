@@ -30,16 +30,13 @@ class InvoiceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding: FragmentInvoiceBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_invoice, container, false)
-
+        val binding: FragmentInvoiceBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_invoice, container, false)
         val application = requireNotNull(this.activity).application
 
         val dataSource = MarketPlaceDatabase.getInstance(application).marketPlaceDatabaseDao
         val viewModelFactory = InvoiceViewModelFactory(dataSource, application)
 
-        invoiceViewModel =
-            ViewModelProvider(this, viewModelFactory).get(InvoiceViewModel::class.java)
+        invoiceViewModel = ViewModelProvider(this, viewModelFactory).get(InvoiceViewModel::class.java)
         binding.invoiceViewModel = invoiceViewModel
         binding.lifecycleOwner = this
 

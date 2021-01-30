@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    app:paidAmount="@{invoice}"
+                    app:amount="@{invoice.paidAmount}"
                     app:layout_constraintEnd_toEndOf="@id/buyerName"
                     app:layout_constraintStart_toEndOf="@id/invoicePaidHeading"
                     app:layout_constraintTop_toBottomOf="@id/buyerName" />
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    app:totalAmount="@{invoice}"
+                    app:amount="@{invoice.totalAmount}"
                     app:layout_constraintEnd_toEndOf="@id/invoiceListDate"
                     app:layout_constraintStart_toEndOf="@id/invoiceTotalHeading"
                     app:layout_constraintTop_toBottomOf="@id/invoiceListDate" />

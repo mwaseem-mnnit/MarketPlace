@@ -18,11 +18,26 @@ data class Invoice (
     @ColumnInfo(name = "buyer_name")
     var buyerName: String = AppConstant.EMPTY_STRING,
 
+    @ColumnInfo(name = "client_name")
+    var clientName: String = AppConstant.EMPTY_STRING,
+
     @ColumnInfo(name = "total_amount")
     var totalAmount: Double = 0.0,
 
     @ColumnInfo(name = "paid_amount")
     var paidAmount: Double = 0.0,
+
+    @ColumnInfo(name = "sub_total")
+    var subTotal: Double = 0.0,
+
+    @ColumnInfo(name = "discount")
+    var discount: Double = 0.0,
+
+    @ColumnInfo(name = "tax")
+    var tax: Double = 0.0,
+
+    @ColumnInfo(name = "shipping")
+    var shipping: Double = 0.0,
 
     @ColumnInfo(name = "created_at")
     var createdAt: Long = System.currentTimeMillis(),
@@ -46,7 +61,7 @@ data class InvoiceItem (
     var productImageUrl: String = AppConstant.EMPTY_STRING,
 
     @ColumnInfo(name = "quantity")
-    var quantity: Double = 0.0,
+    var quantity: Int = 0,
 
     @ColumnInfo(name = "cost")
     var cost: Double = 0.0,

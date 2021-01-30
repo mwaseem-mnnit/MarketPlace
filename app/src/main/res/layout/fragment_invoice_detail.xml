@@ -20,11 +20,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{invoiceDetailViewModel.invoice.buyerName}"
             android:gravity="start"
-            android:text="@string/buyer_name"
-            app:buyerName="@{invoiceDetailViewModel.invoice}"
+            app:layout_constraintBottom_toTopOf="@+id/clientHeading"
             app:layout_constraintEnd_toStartOf="@id/invoiceDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,39 +34,207 @@
             android:id="@+id/invoiceDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            android:text="@string/invoice_date"
-            app:dateFormat="@{invoiceDetailViewModel.invoice}"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:epochToDate="@{invoiceDetailViewModel.invoice.createdAt}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fromEntity"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/fromEntity"
+            app:layout_constraintTop_toTopOf="@id/fromEntity"
+            app:layout_constraintBottom_toBottomOf="@id/fromEntity"/>
 
         <TextView
             android:id="@+id/clientHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/client_heading"
+            app:layout_constraintBottom_toTopOf="@+id/invoiceItemList"
             app:layout_constraintEnd_toStartOf="@+id/clientName"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/fromEntity"
             app:layout_constraintTop_toBottomOf="@id/fromEntity" />
 
         <TextView
             android:id="@+id/clientName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/clientName"
+            android:layout_marginStart="4dp"
+            android:text="@{invoiceDetailViewModel.invoice.clientName}"
+            app:layout_constraintBottom_toBottomOf="@id/clientHeading"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/clientHeading"
-            app:layout_constraintTop_toBottomOf="@id/fromEntity" />
+            app:layout_constraintTop_toTopOf="@id/clientHeading" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/invoiceItemList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/subTotal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clientHeading"
+            tools:listitem="@layout/invoice_sub_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/subTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/sub_total"
+            app:layout_constraintBottom_toTopOf="@id/discount"
+            app:layout_constraintEnd_toStartOf="@id/subTotalValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/invoiceItemList" />
+
+        <TextView
+            android:id="@+id/subTotalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="100.0"
+            app:amount="@{invoiceDetailViewModel.invoice.subTotal}"
+            app:layout_constraintBottom_toBottomOf="@id/subTotal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/subTotal"
+            app:layout_constraintTop_toTopOf="@id/subTotal" />
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Discount"
+            app:layout_constraintBottom_toTopOf="@id/shipping"
+            app:layout_constraintEnd_toStartOf="@id/discountValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subTotal" />
+
+        <TextView
+            android:id="@+id/discountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="10.00"
+            app:amount="@{invoiceDetailViewModel.invoice.discount}"
+            app:layout_constraintBottom_toBottomOf="@id/discount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/discount"
+            app:layout_constraintTop_toTopOf="@id/discount" />
+
+        <TextView
+            android:id="@+id/shipping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Shipping"
+            app:layout_constraintBottom_toTopOf="@id/tax"
+            app:layout_constraintEnd_toStartOf="@id/discountValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discount" />
+
+        <TextView
+            android:id="@+id/shippingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="10.00"
+            app:amount="@{invoiceDetailViewModel.invoice.shipping}"
+            app:layout_constraintBottom_toBottomOf="@id/shipping"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/shipping"
+            app:layout_constraintTop_toTopOf="@id/shipping" />
+
+        <TextView
+            android:id="@+id/tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Tax"
+            app:layout_constraintBottom_toTopOf="@id/total"
+            app:layout_constraintEnd_toStartOf="@id/taxValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shipping" />
+
+        <TextView
+            android:id="@+id/taxValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="10.0"
+            app:amount="@{invoiceDetailViewModel.invoice.tax}"
+            app:layout_constraintBottom_toBottomOf="@id/tax"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tax"
+            app:layout_constraintTop_toTopOf="@id/tax" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Total"
+            app:layout_constraintBottom_toTopOf="@id/paid"
+            app:layout_constraintEnd_toStartOf="@id/totalValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tax" />
+
+        <TextView
+            android:id="@+id/totalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="1000.00"
+            app:amount="@{invoiceDetailViewModel.invoice.totalAmount}"
+            app:layout_constraintBottom_toBottomOf="@id/total"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/total"
+            app:layout_constraintTop_toTopOf="@id/total" />
+
+        <TextView
+            android:id="@+id/paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Paid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/paidValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total" />
+
+        <TextView
+            android:id="@+id/paidValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="10"
+            app:amount="@{invoiceDetailViewModel.invoice.paidAmount}"
+            app:layout_constraintBottom_toBottomOf="@id/paid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/paid"
+            app:layout_constraintTop_toTopOf="@id/paid" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </layout>
